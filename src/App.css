@@ -1,38 +1,558 @@
 .App {
   text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+a {
+  width: 100%;
+  text-decoration: none;
+  color: black;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+button {
+  border: none;
+  background-color: #59779200;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+body {
+  background-color: #cdd7e0;
+  margin-top: 125px;
+}
+
+.navConainer {
+  padding-top: 10px;
+  background-color: #cdd7e0;
+}
+
+h1 {
+  margin: 3px;
+  font-size: 30px;
+  text-shadow: 5px 5px 5px black;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  padding-top: 13px;
+}
+
+.red {
+  color: red;
+}
+
+.red::before {
+  content: "^";
+  position: relative;
+  top: -16px;
+  left: 19px;
+  text-shadow: 5px 5px 5px black;
+  color: red;
+  z-index: -1;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  position: relative;
+}
+
+.navbar {
+  color: white;
+  background-color: #36516b;
+  width: 97%;
+  top: 0;
+  left: 1.5%;
+  position: fixed;
+  border-bottom: 2px solid red;
+  box-shadow: 5px 5px 5px gray;
+  text-shadow: 3px 3px 3px black;
+  border-radius: 0 0 5px 5px;
+  z-index: 1000;
+}
+
+.nav_links_list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+.nav_links_list li {
+  display: flex;
+  align-items: center;
+  margin: 10px 0px;
+  padding: 0px 15px;
+  border-right: 1px solid gray;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav_links_list li a {
+  text-decoration: none;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.nav_links_list li:hover {
+  background-color: gray;
+  border-radius: 5px;
+  transform: scale(1.08);
+  box-shadow: 2px 2px 4px black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.nav_links_list li .topiclistcontainer {
+  transform: scale(0.92);
+}
+
+.nav_links_list li span {
+  font-weight: 500;
+  font-size: 1.1em;
+  margin: 5px;
+}
+
+.menuButton {
+  position: fixed;
+  font-size: 25px;
+  left: 0.5%;
+  top: 12px;
+  display: none;
+}
+
+.navbar__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2a3e52;
+  z-index: 10;
+  border-radius: 0 0 5px 5px;
+}
+
+@keyframes fontbulger {
+  0%,
+  100% {
+    font-size: initial;
   }
-  to {
-    transform: rotate(360deg);
+
+  50% {
+    font-size: 32px;
+    text-shadow: 5px 5px 5px gray;
+  }
+}
+
+h3 {
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  font-size: 30px;
+  text-transform: capitalize;
+  font-weight: 800;
+  font-size: 70px;
+  color: white;
+  border-radius: 5px;
+  background-color: #36516b;
+  text-shadow: 5px 5px 5px black;
+  margin: 10px;
+  margin-bottom: 20px;
+  padding: 0 0 10px 0;
+  width: 60%;
+  border: 2px solid red;
+}
+
+.greenVote {
+  color: rgb(23, 142, 96);
+  animation: fontbulger 0.5s 1;
+}
+
+.redVote {
+  color: red;
+  animation: fontbulger 0.5s 1;
+}
+
+.userWelcome {
+  margin: 15px;
+}
+
+.topiclistcontainer {
+  position: relative;
+  z-index: -10;
+}
+
+.topicdropdown {
+  position: absolute;
+  top: 6px;
+  left: -125px;
+  width: 150px;
+  border-bottom: 2px solid red;
+  padding-top: 20px;
+  z-index: -100;
+}
+
+.topiclist {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-content: center;
+  justify-content: space-evenly;
+  justify-items: center;
+  width: 150px;
+  height: 150px;
+  background-color: #2a3e52;
+}
+
+.topicLink {
+  color: white;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+  text-shadow: 3px 3px 3px black;
+}
+
+.topicLink:hover {
+  background-color: gray;
+  transform: scale(1.08);
+  text-shadow: 4px 4px 4px black;
+}
+
+.topiclist li {
+  height: auto;
+  width: 100%;
+}
+
+.SortByBar {
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 390px;
+  margin: auto;
+  color: rgb(56, 98, 139);
+  padding-bottom: 10px;
+  border-bottom: 1px solid lightsteelblue;
+}
+
+.catergorieslist {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  padding: 0px 10px;
+  border-right: 1px solid lightslategray;
+  cursor: pointer;
+}
+
+.category:hover {
+  color: rgb(32, 55, 78);
+  transform: scale(1.1);
+}
+
+.category.Date {
+  border-right: none;
+}
+
+.categoryName {
+  padding: 5px;
+}
+
+.articles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.articleCardVote {
+  grid-area: vote;
+  display: flex;
+  flex-direction: column;
+  background-color: #59789273;
+  border-top-left-radius: 10px;
+  place-self: stretch;
+  align-content: center;
+  justify-content: center;
+  border-right: 2px solid black;
+  padding: 2px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.articleCardVote p {
+  margin: 0;
+}
+
+.articleCardComments p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.articleCardComments {
+  display: flex;
+  flex-direction: column;
+  grid-area: comments;
+  background-color: #59779273;
+  border-bottom-left-radius: 10px;
+  place-self: stretch;
+  align-content: center;
+  justify-content: center;
+  border-right: 2px solid black;
+  padding: 2px;
+}
+.articleCardHeader {
+  grid-area: header;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.articleCardTopic {
+  margin: 0;
+  padding: 0 10px;
+  color: #848e97;
+  font-weight: 600;
+}
+
+.articleCardDate {
+  margin: 0;
+  padding: 0 10px;
+  color: #848e97;
+}
+
+.articleCardTitle {
+  grid-area: title;
+  margin: 0px;
+}
+
+.articleCardBody {
+  grid-area: body;
+}
+
+.articleCardFooter {
+  grid-area: footer;
+}
+
+.articlecard {
+  display: grid;
+  grid-template-columns: 0.5fr 9fr;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-areas:
+    "vote header "
+    "vote title"
+    "comments body"
+    "comments body";
+  background-color: white;
+  width: 80%;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  box-shadow: 5px 5px 15px gray;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.articleBody {
+  width: 80%;
+}
+
+.commentHeader {
+  grid-area: header;
+}
+
+.commentBody {
+  grid-area: body;
+  text-align: left;
+}
+
+.commentVotes {
+  grid-area: votes;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: stretch;
+}
+
+.commentVotes p {
+  margin: 0;
+}
+
+.commentVotes ion-icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.commentCard {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto 1fr;
+  grid-template-areas:
+    "header"
+    "body"
+    "votes";
+  background-color: white;
+  width: 75%;
+  border-bottom: 1px solid gray;
+  align-items: flex-start;
+  justify-content: flex-start;
+  justify-items: flex-start;
+  align-content: flex-start;
+  padding: 0px 20px;
+  box-shadow: 5px 5px 5px gray;
+}
+
+form {
+  width: 100%;
+  height: 60px;
+}
+
+.articleSubmit {
+  background-color: #2a3e52;
+  color: white;
+  border-radius: 5px;
+  padding: 6px;
+  margin: 10px 0;
+}
+
+.commentTextbox {
+  width: 50%;
+  height: 100%;
+  margin: 0 10px;
+  font-size: 16px;
+}
+
+.commentForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.submitComment {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.deleteComButton {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 800px) {
+  body {
+    margin-top: 60px;
+    margin-left: 32px;
+  }
+
+  .navbar {
+    width: 100%;
+    left: 0;
+    top: 0;
+    border-bottom-left-radius: 0;
+    z-index: 1000;
+  }
+
+  .SortByBar {
+    width: auto;
+  }
+
+  .navbar__bottom {
+    height: 100%;
+    width: 150px;
+    position: fixed;
+    left: -120px;
+    top: 54px;
+    box-shadow: 5px 5px 5px gray;
+    border-right: 2px solid red;
+    border-bottom: 2px solid red;
+    border-bottom-right-radius: 5px;
+    background-color: #36516b;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    align-items: flex-start;
+    z-index: 5;
+    transition: all 0.3s ease;
+  }
+
+  .navbar__bottom.active {
+    left: 0;
+  }
+
+  .nav_links_list {
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+  }
+
+  .nav_links_list li {
+    padding: 0;
+  }
+
+  .menuButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: rgb(177, 5, 5);
+    height: 80px;
+    width: 30px;
+    top: -35px;
+    left: 5px;
+    border-radius: 3px;
+    box-shadow: 5px 5px 5px black;
+    transition: 0.3s;
+    z-index: 8;
+    cursor: pointer;
+  }
+
+  .menuButton:hover {
+    top: -25px;
+  }
+
+  .nav_links_list li {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    border: 0;
+    margin-top: 30px;
+  }
+
+  .topicdropdown {
+    left: 161px;
+    top: -74px;
+    border-bottom: unset;
+    border-right: 2px solid red;
+    border-top: 2px solid red;
+    border-bottom: 2px solid red;
+    background-color: #36516b;
+    box-shadow: 5px 5px 5px gray;
+    padding: 0;
+  }
+
+  .topiclist {
+    background-color: #36516b;
+  }
+
+  .topicLink {
+    background-color: #36516b;
+  }
+
+  .articlecard {
+    grid-template-columns: 1fr 9fr;
   }
 }
