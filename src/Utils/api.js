@@ -49,3 +49,9 @@ export const postComment = (article_id, body, username) => {
 export const deleteComment = (comment_id) => {
   return request.delete(`/comments/${comment_id}`);
 };
+
+export const getUser = (username) => {
+  return request.get(`/users/${username}`).then(({ data }) => {
+    return data;
+  });
+};

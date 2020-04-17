@@ -92,7 +92,7 @@ header {
   transition: all 0.2s ease-in-out;
 }
 
-.nav_links_list li a {
+.nav_links_list li {
   text-decoration: none;
   color: white;
 }
@@ -129,6 +129,10 @@ header {
   background-color: #2a3e52;
   z-index: 10;
   border-radius: 0 0 5px 5px;
+}
+
+.navButton {
+  width: 100%;
 }
 
 @keyframes fontbulger {
@@ -182,8 +186,8 @@ h3 {
 
 .topicdropdown {
   position: absolute;
-  top: 6px;
-  left: -125px;
+  top: -26px;
+  left: -10px;
   width: 150px;
   border-bottom: 2px solid red;
   padding-top: 20px;
@@ -460,6 +464,12 @@ form {
   align-items: center;
 }
 
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 @media only screen and (max-width: 800px) {
   body {
     margin-top: 60px;
@@ -498,6 +508,7 @@ form {
 
   .navbar__bottom.active {
     left: 0;
+    padding-left: 10px;
   }
 
   .nav_links_list {
@@ -539,7 +550,7 @@ form {
   }
 
   .topicdropdown {
-    left: 161px;
+    left: 151px;
     top: -74px;
     border-bottom: unset;
     border-right: 2px solid red;

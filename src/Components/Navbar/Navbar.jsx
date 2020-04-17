@@ -22,8 +22,8 @@ class Navbar extends React.Component {
     const menuItems = [
       { name: "Home", icon: "home", link: "/" },
       { name: "Topics", icon: "library", link: "/" },
-      { name: "Users", icon: "people", link: "users" },
-      { name: "Submit", icon: "create", link: "create" },
+      { name: "Profile", icon: "people", link: "profile" },
+      { name: "Submit", icon: "create", link: "submit" },
     ];
 
     const { currUser } = this.props;
@@ -53,7 +53,7 @@ class Navbar extends React.Component {
             <ul className="nav_links_list">
               {menuItems.map((item) => {
                 return (
-                  <li
+                  <div
                     key={item.name}
                     onMouseEnter={
                       item.name === "Topics" ? this.handleMouseEnter : null
@@ -62,19 +62,21 @@ class Navbar extends React.Component {
                       item.name === "Topics" ? this.handleMouseLeave : null
                     }
                   >
-                    <span className="navIcon">
-                      <ion-icon name={item.icon} />
-                    </span>
-                    <span>
-                      <Link to={item.link}>{item.name}</Link>
-                    </span>
+                    <Link to={item.link}>
+                      <li className="navButton">
+                        <span className="navIcon">
+                          <ion-icon name={item.icon} />
+                        </span>
+                        <span>{item.name}</span>
+                      </li>
+                    </Link>
                     <div className="topiclistcontainer">
                       {" "}
                       {item.name === "Topics" && topicListActive ? (
                         <TopicList topics={topics} />
                       ) : null}
                     </div>
-                  </li>
+                  </div>
                 );
               })}
             </ul>
