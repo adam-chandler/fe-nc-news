@@ -4,32 +4,59 @@ import SortByBar from "../Navbar/SortByBar";
 import * as api from "../../Utils/api";
 import Loader from "../Loader";
 import CommentForm from "./CommentForm";
+import ErrorDisplay from "../ErrorDisplay";
 
 class Comments extends React.Component {
-  state = { comments: [], isLoading: true, sortBy: "", order: "" };
+  state = {
+    comments: [],
+    isLoading: true,
+    sortBy: "",
+    order: "",
+    isError: false,
+    msg: "",
+    status: "",
+  };
 
   componentDidMount() {
-    api.getArticleComments(this.props.article_id).then(({ comments }) => {
-      this.setState({ comments, isLoading: false });
-    });
+    this.fetchComments(this.props.article_id);
   }
 
   componentDidUpdate(prevProp, prevState) {
     const { sortBy, order } = this.state;
     if (prevState.sortBy !== sortBy || prevState.order !== order) {
-      api
-        .getArticleComments(this.props.article_id, sortBy, order)
-        .then(({ comments }) => {
-          this.setState({ comments, isLoading: false });
-        });
+      this.fetchComments(this.props.article_id, sortBy, order);
     }
   }
 
+  fetchComments = (article_id, sortBy, order) => {
+    api
+      .getArticleComments(article_id, sortBy, order)
+      .then(({ comments }) => {
+        this.setState({ comments, isLoading: false });
+      })
+      .catch((err) => {
+        const { data, status } = err.response;
+        this.setState({
+          isError: true,
+          isLoading: false,
+          msg: data.msg,
+          status,
+        });
+      });
+  };
+
   render() {
-    const { comments, isLoading } = this.state;
+    const { comments, isLoading, isError, status } = this.state;
     const { currUser, article_id } = this.props;
 
     if (isLoading) return <Loader />;
+    if (isError)
+      return (
+        <ErrorDisplay
+          msg="Failed to retrieve comments for this article"
+          status={status}
+        />
+      );
     return (
       <>
         <CommentForm
@@ -52,18 +79,20 @@ class Comments extends React.Component {
     );
   }
 
-  handleNewComment = () => {
-    api.getArticleComments(this.props.article_id).then(({ comments }) => {
-      this.setState({ comments });
-    });
+  handleNewComment = (comment) => {
+    const { comments } = this.state;
+    const newComments = [comment, ...comments];
+    this.setState({ comments: newComments });
   };
 
   handleDeleteComment = (comment_id) => {
+    const { comments } = this.state;
     this.setState({ isLoading: true });
     api.deleteComment(comment_id).then(() => {
-      api.getArticleComments(this.props.article_id).then(({ comments }) => {
-        this.setState({ comments, isLoading: false });
-      });
+      const newComments = comments.filter(
+        (comment) => comment.comment_id !== comment_id
+      );
+      this.setState({ comments: newComments, isLoading: false });
     });
   };
 

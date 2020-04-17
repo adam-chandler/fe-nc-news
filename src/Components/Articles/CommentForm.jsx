@@ -19,6 +19,7 @@ class CommentForm extends React.Component {
             value={body}
             name="body"
             placeholder=" Add a comment"
+            minLength="3"
           />
           <button type="submit" className="articleSubmit">
             Submit
@@ -38,13 +39,16 @@ class CommentForm extends React.Component {
     event.preventDefault();
     const { body } = this.state;
     const { article_id, currUser } = this.props;
+    this.setState({ body: "", submitComment: "Comment posted!" });
     api
       .postComment(article_id, body, currUser)
-      .then(() => {
-        this.setState({ body: "", submitComment: "Comment posted!" });
+      .then(({ data }) => {
+        this.props.handleNewComment(data.comment);
       })
-      .then(() => {
-        this.props.handleNewComment();
+      .catch((err) => {
+        this.setState({
+          submitComment: "Error: comment failed to post",
+        });
       });
   };
 }

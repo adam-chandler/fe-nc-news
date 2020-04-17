@@ -3,6 +3,7 @@ import ArticleCard from "./ArticleCard";
 import * as api from "../../Utils/api";
 import SortByBar from "../Navbar/SortByBar";
 import Loader from "../Loader";
+import ErrorDisplay from "../ErrorDisplay";
 
 class ArticlesList extends React.Component {
   state = {
@@ -10,12 +11,13 @@ class ArticlesList extends React.Component {
     isLoading: true,
     sortBy: "",
     order: "",
+    isError: false,
+    status: "",
+    msg: "",
   };
 
   componentDidMount() {
-    api
-      .getArticles(this.props.topic_slug)
-      .then(({ articles }) => this.setState({ articles, isLoading: false }));
+    this.fetchArticles(this.props.topic_slug);
   }
 
   componentDidUpdate(prevProp, prevState) {
@@ -26,16 +28,15 @@ class ArticlesList extends React.Component {
       prevState.sortBy !== sortBy ||
       prevState.order !== order
     ) {
-      api
-        .getArticles(this.props.topic_slug, sortBy, order)
-        .then(({ articles }) => this.setState({ articles, isLoading: false }));
+      this.fetchArticles(this.props.topic_slug, sortBy, order);
     }
   }
 
   render() {
-    const { articles, isLoading } = this.state;
+    const { articles, isLoading, isError, status, msg } = this.state;
 
     if (isLoading) return <Loader />;
+    if (isError) return <ErrorDisplay status={status} msg={msg} />;
     return (
       <div className="articles">
         {this.props.topic_slug ? <h3>{this.props.topic_slug}</h3> : null}
@@ -46,6 +47,21 @@ class ArticlesList extends React.Component {
       </div>
     );
   }
+
+  fetchArticles = (topic_slug, sortBy, order) => {
+    api
+      .getArticles(topic_slug, sortBy, order)
+      .then(({ articles }) => this.setState({ articles, isLoading: false }))
+      .catch((err) => {
+        const { data, status } = err.response;
+        this.setState({
+          isError: true,
+          isLoading: false,
+          msg: data.msg,
+          status,
+        });
+      });
+  };
 
   handleSortClick = (sortBy) => {
     let newOrder =

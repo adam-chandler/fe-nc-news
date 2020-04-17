@@ -2,17 +2,19 @@ import React from "react";
 import TopicList from "./TopicList";
 import { Link } from "@reach/router";
 import * as api from "../../Utils/api";
+import Loader from "../Loader";
 
 class Navbar extends React.Component {
   state = {
     navBarActive: false,
     topicListActive: false,
     topics: [],
+    isLoading: true,
   };
 
   componentDidMount() {
     api.getTopics().then(({ topics }) => {
-      this.setState({ topics: topics });
+      this.setState({ topics: topics, isLoading: false });
     });
   }
 
@@ -25,8 +27,9 @@ class Navbar extends React.Component {
     ];
 
     const { currUser } = this.props;
-    const { navBarActive, topicListActive, topics } = this.state;
+    const { navBarActive, topicListActive, topics, isLoading } = this.state;
 
+    if (isLoading) return <Loader />;
     return (
       <>
         <header className="navbar">

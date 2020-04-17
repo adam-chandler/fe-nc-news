@@ -4,11 +4,13 @@ import * as api from "../../Utils/api";
 class Voter extends React.Component {
   state = {
     optimisticVotes: 0,
+    isError: false,
   };
 
   render() {
-    const { optimisticVotes } = this.state;
+    const { optimisticVotes, isError } = this.state;
     const { votes, id, type } = this.props;
+    if (isError) return <p>Error: Vote failed</p>;
     return (
       <>
         <button
@@ -48,7 +50,14 @@ class Voter extends React.Component {
         optimisticVotes: currState.optimisticVotes + vote,
       };
     });
-    api.patchVote(id, vote, type);
+    api.patchVote(id, vote, type).catch((err) => {
+      const { data, status } = err.response;
+      this.setState({
+        isError: true,
+        msg: data.msg,
+        status,
+      });
+    });
   };
 }
 
