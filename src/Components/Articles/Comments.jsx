@@ -88,12 +88,23 @@ class Comments extends React.Component {
   handleDeleteComment = (comment_id) => {
     const { comments } = this.state;
     this.setState({ isLoading: true });
-    api.deleteComment(comment_id).then(() => {
-      const newComments = comments.filter(
-        (comment) => comment.comment_id !== comment_id
-      );
-      this.setState({ comments: newComments, isLoading: false });
-    });
+    api
+      .deleteComment(comment_id)
+      .then(() => {
+        const newComments = comments.filter(
+          (comment) => comment.comment_id !== comment_id
+        );
+        this.setState({ comments: newComments, isLoading: false });
+      })
+      .catch((err) => {
+        const { data, status } = err.response;
+        this.setState({
+          isError: true,
+          isLoading: false,
+          msg: data.msg,
+          status,
+        });
+      });
   };
 
   handleSortClick = (sortBy) => {

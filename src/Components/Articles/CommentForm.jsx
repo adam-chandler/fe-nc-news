@@ -12,8 +12,7 @@ class CommentForm extends React.Component {
     return (
       <>
         <form onSubmit={this.handleSubmit} className="commentForm">
-          <input
-            type="text"
+          <textarea
             className="commentTextbox"
             onChange={this.handleChange}
             value={body}
@@ -39,17 +38,24 @@ class CommentForm extends React.Component {
     event.preventDefault();
     const { body } = this.state;
     const { article_id, currUser } = this.props;
-    this.setState({ body: "", submitComment: "Comment posted!" });
-    api
-      .postComment(article_id, body, currUser)
-      .then(({ data }) => {
-        this.props.handleNewComment(data.comment);
-      })
-      .catch((err) => {
-        this.setState({
-          submitComment: "Error: comment failed to post",
-        });
+    if (body.length < 5) {
+      this.setState({
+        submitComment: "Comments must be over 5 characters long",
       });
+    } else {
+      this.setState({ body: "", submitComment: "Comment posted!" });
+      api
+        .postComment(article_id, body, currUser)
+        .then(({ data }) => {
+          this.props.handleNewComment(data.comment);
+          setTimeout(() => this.setState({ submitComment: "" }), 2000);
+        })
+        .catch((err) => {
+          this.setState({
+            submitComment: "Error: comment failed to post",
+          });
+        });
+    }
   };
 }
 

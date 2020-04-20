@@ -3,6 +3,7 @@ import TopicList from "./TopicList";
 import { Link } from "@reach/router";
 import * as api from "../../Utils/api";
 import Loader from "../Loader";
+import ErrorDisplay from "../ErrorDisplay";
 
 class Navbar extends React.Component {
   state = {
@@ -10,12 +11,24 @@ class Navbar extends React.Component {
     topicListActive: false,
     topics: [],
     isLoading: true,
+    isError: false,
   };
 
   componentDidMount() {
-    api.getTopics().then(({ topics }) => {
-      this.setState({ topics: topics, isLoading: false });
-    });
+    api
+      .getTopics()
+      .then(({ topics }) => {
+        this.setState({ topics: topics, isLoading: false });
+      })
+      .catch((err) => {
+        const { data, status } = err.response;
+        this.setState({
+          isError: true,
+          isLoading: false,
+          msg: data.msg,
+          status,
+        });
+      });
   }
 
   render() {
@@ -27,9 +40,18 @@ class Navbar extends React.Component {
     ];
 
     const { currUser } = this.props;
-    const { navBarActive, topicListActive, topics, isLoading } = this.state;
+    const {
+      navBarActive,
+      topicListActive,
+      topics,
+      isLoading,
+      isError,
+      status,
+      msg,
+    } = this.state;
 
     if (isLoading) return <Loader />;
+    if (isError) return <ErrorDisplay status={status} msg={msg} />;
     return (
       <>
         <header className="navbar">

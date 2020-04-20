@@ -6,7 +6,7 @@ import { Router } from "@reach/router";
 import Article from "./Components/Articles/Article";
 import ErrorDisplay from "./Components/ErrorDisplay";
 import Profile from "./Components/Profile";
-import SubmitArticle from "./Components/Articles/SubmitArticle";
+import ArticleSubmitter from "./Components/Articles/ArticleSubmitter";
 
 class App extends React.Component {
   state = {
@@ -23,7 +23,7 @@ class App extends React.Component {
           <ArticlesList path="/topics/:topic_slug" />
           <Article currUser={currUser} path="/article/:article_id" />
           <Profile currUser={currUser} path="/profile" />
-          <SubmitArticle path="submit" />
+          <ArticleSubmitter path="submit" />
           <ErrorDisplay default status="404" msg="Page not found" />
         </Router>
       </div>

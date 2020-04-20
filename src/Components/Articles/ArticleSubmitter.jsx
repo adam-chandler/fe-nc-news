@@ -1,6 +1,6 @@
 import React from "react";
 
-const SubmitArticle = () => {
+const ArticleSubmitter = () => {
   return (
     <div className="profile">
       <h3>Coming soon...</h3>
@@ -8,4 +8,4 @@ const SubmitArticle = () => {
   );
 };
 
-export default SubmitArticle;
+export default ArticleSubmitter;

@@ -376,6 +376,7 @@ h3 {
 
 .articleBody {
   width: 80%;
+  text-align: justify;
 }
 
 .commentHeader {
@@ -571,5 +572,10 @@ form {
 
   .articlecard {
     grid-template-columns: 1fr 9fr;
+    width: 95%;
+  }
+
+  h3 {
+    width: 95%;
   }
 }
