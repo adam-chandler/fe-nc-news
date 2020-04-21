@@ -7,6 +7,10 @@ class CommentForm extends React.Component {
     submitComment: "",
   };
 
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
   render() {
     const { body, submitComment } = this.state;
     return (
@@ -18,7 +22,6 @@ class CommentForm extends React.Component {
             value={body}
             name="body"
             placeholder=" Add a comment"
-            minLength="3"
           />
           <button type="submit" className="articleSubmit">
             Submit
@@ -48,9 +51,13 @@ class CommentForm extends React.Component {
         .postComment(article_id, body, currUser)
         .then(({ data }) => {
           this.props.handleNewComment(data.comment);
-          setTimeout(() => this.setState({ submitComment: "" }), 2000);
+          this.timer = setTimeout(
+            () => this.setState({ submitComment: "" }),
+            2000
+          );
         })
         .catch((err) => {
+          console.dir(err);
           this.setState({
             submitComment: "Error: comment failed to post",
           });

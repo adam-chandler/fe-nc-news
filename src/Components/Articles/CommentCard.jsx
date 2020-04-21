@@ -26,14 +26,14 @@ const CommentCard = ({
       </div>
       <div className="commentVotes">
         <Voter votes={votes} id={comment_id} type="comments" />
-        {currUser === author ? (
+        {currUser === author && (
           <p
             onClick={() => handleDeleteComment(comment_id)}
             className="deleteComButton"
           >
             Delete comment
           </p>
-        ) : null}
+        )}
       </div>
     </div>
   );
