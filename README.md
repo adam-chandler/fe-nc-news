@@ -2,7 +2,7 @@
 
 ## About
 
-Northcoders' News is a news website loosly based on Reddit.
+Northcoders' News is a news website loosely based on Reddit.
 
 You can find a deployed version of this repository [here](https://adams-nc-news-fe.netlify.app)
 
